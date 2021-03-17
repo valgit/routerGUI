@@ -2,6 +2,7 @@ import org.openstreetmap.gui.jmapviewer.*;
 import org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent;
 import org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener;
 import org.openstreetmap.gui.jmapviewer.interfaces.TileSource;
+import org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource;
 import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
 
 import javax.swing.*;
@@ -23,6 +24,25 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
     //TODO: create object
     private Coordinate mStartPoint;
     private Coordinate mEndPoint;
+    // view race info :
+    private JTextField textFieldStartLatDeg;
+    private JTextField textFieldStartLatMin;
+    private JTextField textFieldStartLatSec;
+    private JComboBox comboBoxStartHemi;
+    private JTextField textFieldStartLonDeg;
+    private JTextField textFieldStartLonMin;
+    private JTextField textFieldStartLonSec;
+
+    private JTextField textFieldStopLatDeg;
+    private JTextField textFieldStopLatMin;
+    private JTextField textFieldStopLatSec;
+    private JComboBox comboBoxStopHemi;
+    private JTextField textFieldStopLonSec;
+    private JTextField textFieldStopLonDeg;
+    private JTextField textFieldStopLonMin;
+
+
+
 
     /**
      * Setups the JFrame layout, sets some default options for the JMapViewerTree and displays a map in the window.
@@ -42,7 +62,8 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         button.addActionListener(e -> map().setDisplayToFitMapMarkers());
         JComboBox<TileSource> tileSourceSelector = new JComboBox<>(new TileSource[] {
                 new OsmTileSource.Mapnik(),
-                new SeaMapSource(), // TODO: not working
+                new BingAerialTileSource(),
+                //new SeaMapSource(), // TODO: not working
         });
         tileSourceSelector.addItemListener(new ItemListener() {
             @Override
@@ -88,6 +109,9 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
 
         add(panel, BorderLayout.NORTH);
         add(helpPanel, BorderLayout.SOUTH);
+
+        JPanel leftPanel = createLeftPanel();
+        add(leftPanel,BorderLayout.WEST);
 
         panel.add(panelTop, BorderLayout.NORTH);
         panel.add(panelBottom, BorderLayout.SOUTH);
@@ -158,6 +182,10 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(800, 600);
+    }
 
     private JMapViewer map() {
         //return theMap.getViewer();
@@ -236,12 +264,36 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         if (no == 0) {
             mStartPoint = coord;
             theMap.addMapMarker(new MapMarkerDot("start",mStartPoint));
+            textFieldStartLatDeg.setText(Utils.FormatLat(coord.getLat()));
+            textFieldStartLonDeg.setText(Utils.FormatLon(coord.getLon()));
         }
         if (no == 1) {
             mEndPoint = coord;
             theMap.addMapMarker(new MapMarkerDot("end", mEndPoint));
         }
 
+    }
+
+    JPanel createLeftPanel() {
+        JPanel leftPanel = new JPanel();
+
+        textFieldStartLatDeg = new JTextField();
+        textFieldStartLatMin = new JTextField();
+        textFieldStartLatSec = new JTextField();
+
+        leftPanel.add(textFieldStartLatDeg);
+        leftPanel.add(textFieldStartLatMin);
+        leftPanel.add(textFieldStartLatSec);
+
+        textFieldStartLonDeg = new JTextField();
+        textFieldStartLonMin = new JTextField();
+        textFieldStartLonSec = new JTextField();
+
+        leftPanel.add(textFieldStartLonDeg);
+        leftPanel.add(textFieldStartLonMin);
+        leftPanel.add(textFieldStartLonSec);
+
+        return leftPanel;
     }
 }
 
