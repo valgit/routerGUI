@@ -25,24 +25,7 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
     private Coordinate mStartPoint;
     private Coordinate mEndPoint;
     // view race info :
-    private JTextField textFieldStartLatDeg;
-    private JTextField textFieldStartLatMin;
-    private JTextField textFieldStartLatSec;
-    private JComboBox comboBoxStartHemi;
-    private JTextField textFieldStartLonDeg;
-    private JTextField textFieldStartLonMin;
-    private JTextField textFieldStartLonSec;
-
-    private JTextField textFieldStopLatDeg;
-    private JTextField textFieldStopLatMin;
-    private JTextField textFieldStopLatSec;
-    private JComboBox comboBoxStopHemi;
-    private JTextField textFieldStopLonSec;
-    private JTextField textFieldStopLonDeg;
-    private JTextField textFieldStopLonMin;
-
-
-
+    private leftPanel lfPane;
 
     /**
      * Setups the JFrame layout, sets some default options for the JMapViewerTree and displays a map in the window.
@@ -110,8 +93,8 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         add(panel, BorderLayout.NORTH);
         add(helpPanel, BorderLayout.SOUTH);
 
-        JPanel leftPanel = createLeftPanel();
-        add(leftPanel,BorderLayout.WEST);
+        lfPane = new leftPanel();
+        add(lfPane.getLeftPanel(),BorderLayout.WEST);
 
         panel.add(panelTop, BorderLayout.NORTH);
         panel.add(panelBottom, BorderLayout.SOUTH);
@@ -264,36 +247,17 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         if (no == 0) {
             mStartPoint = coord;
             theMap.addMapMarker(new MapMarkerDot("start",mStartPoint));
-            textFieldStartLatDeg.setText(Utils.FormatLat(coord.getLat()));
-            textFieldStartLonDeg.setText(Utils.FormatLon(coord.getLon()));
+            lfPane.getTextFieldStartLatDeg().setText(Utils.FormatLat(coord.getLat()));
+            lfPane.getTextFieldStartLonDeg().setText(Utils.FormatLon(coord.getLon()));
         }
         if (no == 1) {
             mEndPoint = coord;
             theMap.addMapMarker(new MapMarkerDot("end", mEndPoint));
+            lfPane.getTextFieldStopLatDeg().setText(Utils.FormatLat(coord.getLat()));
+            lfPane.getTextFieldStopLonDeg().setText(Utils.FormatLon(coord.getLon()));
         }
 
     }
 
-    JPanel createLeftPanel() {
-        JPanel leftPanel = new JPanel();
-
-        textFieldStartLatDeg = new JTextField();
-        textFieldStartLatMin = new JTextField();
-        textFieldStartLatSec = new JTextField();
-
-        leftPanel.add(textFieldStartLatDeg);
-        leftPanel.add(textFieldStartLatMin);
-        leftPanel.add(textFieldStartLatSec);
-
-        textFieldStartLonDeg = new JTextField();
-        textFieldStartLonMin = new JTextField();
-        textFieldStartLonSec = new JTextField();
-
-        leftPanel.add(textFieldStartLonDeg);
-        leftPanel.add(textFieldStartLonMin);
-        leftPanel.add(textFieldStartLonSec);
-
-        return leftPanel;
-    }
 }
 
