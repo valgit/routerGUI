@@ -247,14 +247,41 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         if (no == 0) {
             mStartPoint = coord;
             theMap.addMapMarker(new MapMarkerDot("start",mStartPoint));
-            lfPane.getTextFieldStartLatDeg().setText(Utils.FormatLat(coord.getLat()));
-            lfPane.getTextFieldStartLonDeg().setText(Utils.FormatLon(coord.getLon()));
+            Integer d = (int)coord.getLat();
+            double remain = (coord.getLat()-d);
+            Integer m = (int)( remain * 60.0);
+            Integer s = (int)((remain - m/60.0)*3600.0);
+            lfPane.getTextFieldStartLatDeg().setText(d.toString());
+            lfPane.getTextFieldStartLatMin().setText(m.toString());
+            lfPane.getTextFieldStartLatSec().setText(s.toString());
+
+            d = (int)coord.getLon();
+            remain = (coord.getLon()-d);
+            m = (int)( remain * 60.0);
+            s = (int)((remain - m/60.0)*3600.0);
+            lfPane.getTextFieldStartLonDeg().setText(d.toString());
+            lfPane.getTextFieldStartLonMin().setText(m.toString());
+            lfPane.getTextFieldStartLonSec().setText(s.toString());
         }
         if (no == 1) {
             mEndPoint = coord;
             theMap.addMapMarker(new MapMarkerDot("end", mEndPoint));
-            lfPane.getTextFieldStopLatDeg().setText(Utils.FormatLat(coord.getLat()));
-            lfPane.getTextFieldStopLonDeg().setText(Utils.FormatLon(coord.getLon()));
+
+            Integer d = (int)coord.getLat();
+            double remain = (coord.getLat()-d);
+            Integer m = (int)( remain * 60.0);
+            Integer s = (int)((remain - m/60.0)*3600.0);
+            lfPane.getTextFieldStopLatDeg().setText(d.toString());
+            lfPane.getTextFieldStopLatMin().setText(m.toString());
+            lfPane.getTextFieldStopLatSec().setText(s.toString());
+
+            d = (int)coord.getLon();
+            remain = (coord.getLon()-d);
+            m = (int)( remain * 60.0);
+            s = (int)((remain - m/60.0)*3600.0);
+            lfPane.getTextFieldStopLonDeg().setText(d.toString());
+            lfPane.getTextFieldStopLonMin().setText(m.toString());
+            lfPane.getTextFieldStopLonSec().setText(s.toString());
         }
 
     }
