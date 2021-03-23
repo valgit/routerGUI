@@ -60,6 +60,11 @@ public class leftPanel {
     private JTextField textFieldStopLatSec;
     private JTextField textFieldStopLonDeg;
     private JTextField textFieldStopLonSec;
+
+    public JButton getLoadRouteButton() {
+        return loadRouteButton;
+    }
+
     private JButton loadRouteButton;
     private JTextField textFieldStartLatDeg;
     private JTextField textFieldStopLonMin;

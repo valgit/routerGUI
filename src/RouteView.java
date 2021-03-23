@@ -96,6 +96,17 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         lfPane = new leftPanel();
         add(lfPane.getLeftPanel(),BorderLayout.WEST);
 
+        lfPane.getLoadRouteButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                /*
+                Show show = new Show(JOptionPane.getFrameForComponent(this), true);
+                show.setVisible(true);
+                */
+                 System.out.println("load CSV call");
+            }
+        });
+
         panel.add(panelTop, BorderLayout.NORTH);
         panel.add(panelBottom, BorderLayout.SOUTH);
 
@@ -108,7 +119,7 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         //map().setTileSource(new OsmTileSource.Mapnik());
         map().setTileLoader(new OsmTileLoader(map()));
         map().setMapMarkerVisible(true);
-        map().setZoomContolsVisible(true);
+        map().setZoomControlsVisible(true);
 
         // activate map in window
         //theMap.setTreeVisible(true);
@@ -119,11 +130,11 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     map().getAttribution().handleAttribution(e.getPoint(), true);
-                }
-                //TODO: better
-                final JPopupMenu mn = createPopupMenu(e);
-                if (mn != null) {
-                    mn.show(e.getComponent(), e.getX(), e.getY());
+                    //TODO: better
+                    final JPopupMenu mn = createPopupMenu(e);
+                    if (mn != null) {
+                        mn.show(e.getComponent(), e.getX(), e.getY());
+                    }
                 }
             }
         });
