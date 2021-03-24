@@ -6,8 +6,10 @@ import org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource;
 import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class RouteView extends JFrame implements JMapViewerEventListener {
 
@@ -99,11 +101,17 @@ public class RouteView extends JFrame implements JMapViewerEventListener {
         lfPane.getLoadRouteButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                /*
-                Show show = new Show(JOptionPane.getFrameForComponent(this), true);
-                show.setVisible(true);
-                */
-                 System.out.println("load CSV call");
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("track file");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                //fileChooser.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV", "csv");
+                fileChooser.addChoosableFileFilter(filter);
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File fname = fileChooser.getSelectedFile();
+                    System.out.println("will open : " + fname);
+                }
             }
         });
 
